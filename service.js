@@ -1,0 +1,16 @@
+// In basic js we don't use require(used in Node Js) or import(used in ES6) to import a file.
+// Destructuring the imported object
+
+import { Model } from "../models/model.js";
+
+export default async function doNetworkCall() {
+  const response = await fetch("https://fakestoreapi.com/products");
+  let data = await response.json();
+  console.log("Data is", data);
+
+  data = data.map(
+    (ele) => new Model(ele.id, ele.image, ele.title, ele.price, ele.description)
+  );
+  
+  return data;
+}
